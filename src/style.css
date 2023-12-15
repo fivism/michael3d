@@ -1,0 +1,21 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    overflow: hidden; /* Prevent scroll bars */
+}
+
+.canvas-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.webgl {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
