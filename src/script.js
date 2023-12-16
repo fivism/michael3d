@@ -9,17 +9,24 @@ const scene = new THREE.Scene()
 /**
  * Objects
  */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
 
+function generateBuildings() {
+    for (let i = 0; i < 10; i++) {
+        const randomHeight = Math.floor(Math.random() * 4) + 1.5;
+        const geometry = new THREE.BoxGeometry(1, randomHeight, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x4AF626, wireframe: true })
+        const mesh = new THREE.Mesh(geometry, material)
+        scene.add(mesh)
+        mesh.position.set(i, randomHeight / 2, 0)
+    }
+}
+generateBuildings();
 
 /** Axes helper
  * 
  */
-const axesHelper = new THREE.AxesHelper()
-scene.add(axesHelper);
+// const axesHelper = new THREE.AxesHelper()
+// scene.add(axesHelper);
 
 /**
  * Sizes
@@ -46,21 +53,21 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.render(scene, camera)
 
 
+// Set up animation variables
+const clock = new THREE.Clock();
+let elapsed = 0;
+
 function animate() {
     requestAnimationFrame(animate)
 
+    elapsed += clock.getDelta();
+    const panSpeed = 0.1;
     // Update camera position
-    camera.position.z = Math.abs(Math.sin(Date.now() * 0.001) * 5); // Adjust the multiplier for speed
-    camera.position.x = Math.abs(Math.sin(Date.now() * 0.001) * 1); // Adjust the multiplier for speed
-    // camera.position.y = Math.sin(Date.now() * 0.001) * 3; // Adjust the multiplier for speed
-
-    // mesh.position.y = Math.sin(Date.now() * 0.001) * 3;
-    // mesh.position.z = Math.sin(Date.now() * 0.001) * 2;
-    // mesh.position
-    // Look at the center of the scene
+    camera.position.z = 5
+    camera.position.x = elapsed * panSpeed;
+    // camera.position.x = Math.abs(Math.sin(Date.now() * 0.001) * 5); // Adjust the multiplier for speed
+    camera.position.y = 2
     // camera.lookAt(0, 0, 0);
-
-    // Render scene with camera
     renderer.render(scene, camera)
 }
 
